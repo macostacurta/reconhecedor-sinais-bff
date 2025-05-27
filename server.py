@@ -76,6 +76,14 @@ class ImageRecognitionBFF:
                     "timestamp": datetime.now().isoformat()
                 }
                 await websocket.send(json.dumps(pong_msg))
+
+            elif message_type == "frame":
+                logger.info("Estou vivo e funcionando!")
+                retorno = {
+                    "type": "text",
+                    "data": "Vire a Direita"
+                }
+                await websocket.send(json.dump(retorno))
             
             elif message_type == "image_recognition":
                 # Processa solicitação de reconhecimento de imagem

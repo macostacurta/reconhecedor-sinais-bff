@@ -70,7 +70,7 @@ class ImageRecognitionBFF:
             
             if message_type == "ping":
                 # Responde ao ping para manter conexão viva
-                print('Estou vivo!')
+                logger.info("Estou vivo e funcionando!")
                 pong_msg = {
                     "type": "pong",
                     "timestamp": datetime.now().isoformat()
@@ -112,7 +112,7 @@ class ImageRecognitionBFF:
             
             elif message_type == "status":
                 # Retorna status do servidor
-                print('Estou vivo!')
+                
                 status_msg = {
                     "type": "status_response",
                     "connected_clients": len(self.connected_clients),

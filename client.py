@@ -212,10 +212,10 @@ async def main():
     print("\n🚀 Iniciando cliente de teste WebSocket")
     
     # Opção para definir URI diretamente (descomente e altere conforme necessário)
-    # client = TestClient("wss://seu-app-name.onrender.com")
+    client = TestClient("wss://websocket-image-recognition.onrender.com")
     
     # Usa configuração automática (recomendado)
-    client = TestClient()
+    #client = TestClient()
     
     await client.interactive_test()
 

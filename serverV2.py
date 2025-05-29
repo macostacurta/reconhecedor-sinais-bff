@@ -247,7 +247,7 @@ class WebSocketRouterBFF:
                     }
                     await websocket.send(json.dumps(error_msg))
                     return
-                
+
                 # Envia confirmação de recebimento
                 ack_msg = {
                     "type": "routing",

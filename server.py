@@ -78,7 +78,9 @@ class ImageRecognitionBFF:
                 await websocket.send(json.dumps(pong_msg))
 
             elif message_type == "gesture":
-                logger.info(data.get("gesture"))
+                logger.info(data.get("gesture"),
+                            data.get("timestamp")
+                            )
                 logger.info(data.get("timestamp"))
             
             elif message_type == "image_recognition":

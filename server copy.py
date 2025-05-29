@@ -36,31 +36,31 @@ class ImageRecognitionBFF:
         self.connected_clients.discard(websocket)
         logger.info(f"Cliente desconectado. Total: {len(self.connected_clients)}")
     
-    async def process_image_recognition(self, image_data: str, client_id: str):
-        """Simula o processamento de reconhecimento de imagem"""
-        # Aqui você integraria com sua IA de reconhecimento
-        # Por enquanto, vamos simular um processamento
+    # async def process_image_recognition(self, image_data: str, client_id: str):
+    #     """Simula o processamento de reconhecimento de imagem"""
+    #     # Aqui você integraria com sua IA de reconhecimento
+    #     # Por enquanto, vamos simular um processamento
         
-        logger.info(f"Processando imagem para cliente {client_id}")
+    #     logger.info(f"Processando imagem para cliente {client_id}")
         
-        # Simula tempo de processamento
-        await asyncio.sleep(2)
+    #     # Simula tempo de processamento
+    #     await asyncio.sleep(2)
         
-        # Resultado simulado - substitua pela chamada real da IA
-        result = {
-            "client_id": client_id,
-            "status": "completed",
-            "confidence": 0.95,
-            "predictions": [
-                {"label": "Cachorro", "confidence": 0.95},
-                {"label": "Golden Retriever", "confidence": 0.87},
-                {"label": "Animal Doméstico", "confidence": 0.92}
-            ],
-            "processing_time": 2.1,
-            "timestamp": datetime.now().isoformat()
-        }
+    #     # Resultado simulado - substitua pela chamada real da IA
+    #     result = {
+    #         "client_id": client_id,
+    #         "status": "completed",
+    #         "confidence": 0.95,
+    #         "predictions": [
+    #             {"label": "Cachorro", "confidence": 0.95},
+    #             {"label": "Golden Retriever", "confidence": 0.87},
+    #             {"label": "Animal Doméstico", "confidence": 0.92}
+    #         ],
+    #         "processing_time": 2.1,
+    #         "timestamp": datetime.now().isoformat()
+    #     }
         
-        return result
+    #     return result
     
     async def handle_message(self, websocket, message: str):
         """Processa mensagens recebidas dos clientes"""
@@ -77,42 +77,42 @@ class ImageRecognitionBFF:
                 }
                 await websocket.send(json.dumps(pong_msg))
 
-            elif message_type == "gesture":
+            if message_type == "gesture":
                 logger.info(data.get("gesture"))
                 logger.info(data.get("timestamp"))
             
-            elif message_type == "image_recognition":
-                # Processa solicitação de reconhecimento de imagem
-                client_id = data.get("client_id", str(uuid.uuid4()))
-                image_data = data.get("image_data")
+            # elif message_type == "image_recognition":
+            #     # Processa solicitação de reconhecimento de imagem
+            #     client_id = data.get("client_id", str(uuid.uuid4()))
+            #     image_data = data.get("image_data")
                 
-                if not image_data:
-                    error_msg = {
-                        "type": "error",
-                        "message": "Dados da imagem não fornecidos",
-                        "client_id": client_id
-                    }
-                    await websocket.send(json.dumps(error_msg))
-                    return
+            #     if not image_data:
+            #         error_msg = {
+            #             "type": "error",
+            #             "message": "Dados da imagem não fornecidos",
+            #             "client_id": client_id
+            #         }
+            #         await websocket.send(json.dumps(error_msg))
+            #         return
                 
-                # Envia confirmação de recebimento
-                ack_msg = {
-                    "type": "processing",
-                    "message": "Imagem recebida, iniciando processamento...",
-                    "client_id": client_id,
-                    "timestamp": datetime.now().isoformat()
-                }
-                await websocket.send(json.dumps(ack_msg))
+            #     # Envia confirmação de recebimento
+            #     ack_msg = {
+            #         "type": "processing",
+            #         "message": "Imagem recebida, iniciando processamento...",
+            #         "client_id": client_id,
+            #         "timestamp": datetime.now().isoformat()
+            #     }
+            #     await websocket.send(json.dumps(ack_msg))
                 
-                # Processa a imagem (assíncrono)
-                result = await self.process_image_recognition(image_data, client_id)
+            #     # Processa a imagem (assíncrono)
+            #     result = await self.process_image_recognition(image_data, client_id)
                 
-                # Envia resultado
-                response_msg = {
-                    "type": "recognition_result",
-                    **result
-                }
-                await websocket.send(json.dumps(response_msg))
+            #     # Envia resultado
+            #     response_msg = {
+            #         "type": "recognition_result",
+            #         **result
+            #     }
+            #     await websocket.send(json.dumps(response_msg))
             
             elif message_type == "status":
                 # Retorna status do servidor
